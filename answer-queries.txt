@@ -1,0 +1,38 @@
+Part 1
+
+Find the albums recorded by the artist Queen.
+1. Album.where(artist_id: Artist.where(name: "Queen"))
+
+Count how many tracks belong to the media type "Protected MPEG-4 video file".
+2. Track.where(media_type_id: (MediaType.where(name:"Protected MPEG-4 video file"))).count
+
+Find the genre with the name "Hip Hop/Rap".
+3. Genre.find_by(name: "Hip Hop/Rap")
+
+Count how many tracks belong to the "Hip Hop/Rap" genre
+4. Track.where(genre_id: 17).count
+
+Find the total amount of time required to listen to all the tracks in the database.
+5. Track.sum(:milliseconds)
+
+Find the highest price of any track that has the media type "MPEG audio file".
+6. Track.where(media_type_id: MediaType.where(name: "MPEG audio file")).maximum(:unit_price)
+
+Find the name of the most expensive track that has the media type "MPEG audio file".
+7. Track.where(unit_price: 0.99, media_type_id: MediaType.where(name: "MPEG audio file"))
+
+Find the 2 oldest artists.
+8. Artist.order(created_at: :asc).limit(2)
+
+Find the least expensive track that has the genre "Electronica/Dance".
+
+9. Track.where(genre_id: Genre.where(name: "Electronica/Dance")).order(unit_price: :desc).limit(1)
+
+Find all "MPEG audio file" tracks in the genre "Electronica/Dance".
+10. Track.where(media_type_id: MediaType.where(name: "MPEG audio file")).where(genre_id: Genre.where(name: "Electronica/Dance"))
+
+Stretch
+Find all the albums whose titles start with B.
+1. Album.where("title LIKE ?", "B%")
+Find the all the artists whose names start with A.
+2. Artist.where("name LIKE ?", "A%")
